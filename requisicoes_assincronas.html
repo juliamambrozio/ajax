@@ -9,11 +9,14 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	
         <script>
+            
             function requisitarPagina(url){
+                
+            document.getElementById('conteudo').innerHTML = '' //limpando conteúdo da div
 
             //incluir o gif de loading
 
-            if(!document.getElementById('loading')){ //verificando se existe o arquivo
+            if(!document.getElementById('loading')){ //verificando se existe o arquivo para não exibir ele várias vezes
             let imgLoading = document.createElement('img')
             imgLoading.id = 'loading'
             imgLoading.src = 'loading.gif'
@@ -36,7 +39,21 @@
 
             //de alguma lógica que fique olhando para o processo da requisição
             ajax.onreadystatechange = function(){
-                if(ajax.readyState == 4){
+                if(ajax.readyState == 4 && ajax.status == 200){
+                    //STATUS
+                    console.log('O status da requisião é', ajax.status); 
+                    document.getElementById('conteudo').innerHTML=   'Requisição feita com sucesso, seu status é 200'
+
+                    //innerHTML = atualiza o conteúdo interno de um elemento
+                    //appendChild = adiciona um novo filho ao elemento pai
+                    
+                    //document.getElementById('loading').remove(), não é mais necessário, pois o INNERHTML substitui o elemento que está dentro quando é exibido //removendo o arquivo quando a requisição for finalizada
+                }
+
+                if(ajax.readyState == 4 && ajax.status == 404){
+                    //STATUS
+                    console.log('O status da requisião é', ajax.status);  
+                    document.getElementById('conteudo').innerHTML=   'Requisição feita com sucesso, porém, o conteúdo não foi encontrado seu status é 404', 
                     document.getElementById('loading').remove() //removendo o arquivo quando a requisição for finalizada
                 }
             }
@@ -64,7 +81,7 @@
 	    	<div class="row mb-2">
 	    		<div class="col-md-4 center"></div>
 	    		<div class="col-md-4 center">
-	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_1_conteudo.html')">Página 1</a>
+	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_5_conteudo.html')">Página 1</a>
 	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_2_conteudo.html')">Página 2</a>
 	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_3_conteudo.html')">Página 3</a>
 	    		</div>
