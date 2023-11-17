@@ -10,6 +10,19 @@
 	
         <script>
             function requisitarPagina(url){
+
+            //incluir o gif de loading
+
+            if(!document.getElementById('loading')){ //verificando se existe o arquivo
+            let imgLoading = document.createElement('img')
+            imgLoading.id = 'loading'
+            imgLoading.src = 'loading.gif'
+            imgLoading.className = 'rounded mx-auto d-block'
+            document.getElementById('conteudo').appendChild(imgLoading)
+            }
+            
+
+            
             /* REQUISIÇÃO */
             let ajax = new XMLHttpRequest();
 
@@ -20,10 +33,12 @@
 
             //conexão estabelecida com o servidor
             console.log(ajax.readyState)
-            
+
             //de alguma lógica que fique olhando para o processo da requisição
             ajax.onreadystatechange = function(){
-                console.log(ajax.readyState)
+                if(ajax.readyState == 4){
+                    document.getElementById('loading').remove() //removendo o arquivo quando a requisição for finalizada
+                }
             }
             ajax.send();
             console.log(ajax);
@@ -59,7 +74,7 @@
 	    	<div class="row">
 		    	<div class="col-md-1"></div>
 
-		    	<div class="col-md-10">
+		    	<div class="col-md-10" id="conteudo">
 		    		
 		    	</div>
 		    		
