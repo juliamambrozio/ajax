@@ -42,7 +42,7 @@
                 if(ajax.readyState == 4 && ajax.status == 200){
                     //STATUS
                     console.log('O status da requisião é', ajax.status); 
-                    document.getElementById('conteudo').innerHTML=   'Requisição feita com sucesso, seu status é 200'
+                    document.getElementById('conteudo').innerHTML = ajax.responseText //responseText = responsável por fazer a outra página ser exibida
 
                     //innerHTML = atualiza o conteúdo interno de um elemento
                     //appendChild = adiciona um novo filho ao elemento pai
@@ -53,8 +53,8 @@
                 if(ajax.readyState == 4 && ajax.status == 404){
                     //STATUS
                     console.log('O status da requisião é', ajax.status);  
-                    document.getElementById('conteudo').innerHTML=   'Requisição feita com sucesso, porém, o conteúdo não foi encontrado seu status é 404', 
-                    document.getElementById('loading').remove() //removendo o arquivo quando a requisição for finalizada
+                    document.getElementById('conteudo').innerHTML= 'Conteúdo inexistente'
+                    //document.getElementById('loading').remove() //removendo o arquivo quando a requisição for finalizada
                 }
             }
             ajax.send();
@@ -81,7 +81,7 @@
 	    	<div class="row mb-2">
 	    		<div class="col-md-4 center"></div>
 	    		<div class="col-md-4 center">
-	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_5_conteudo.html')">Página 1</a>
+	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_1_conteudo.html')">Página 1</a>
 	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_2_conteudo.html')">Página 2</a>
 	    			<a href="#" class="btn btn-primary" onclick="requisitarPagina('pagina_3_conteudo.html')">Página 3</a>
 	    		</div>
