@@ -28,7 +28,74 @@
 
                    jsonFilmes = xmlToJson(domFilmes)
 
-                   console.log(jsonFilmes)
+                   //console.log(jsonFilmes)
+
+                   for(let i in jsonFilmes['filmes']['filme']) {
+					let item = jsonFilmes['filmes']['filme'][i] //todos da lista pertencem ao i
+
+                    let divRow = document.createElement('div')
+					divRow.className = 'row'
+
+					let divCol = document.createElement('div')
+							divCol.className = 'col'
+
+					let p1 = document.createElement('p')
+					p1.innerHTML = '<strong>Título:</strong> ' + item['titulo']['#text']
+
+                    let p2 = document.createElement('p')
+					p2.innerHTML = '<strong>Resumo:</strong> ' + item['resumo']['#text']
+
+                    let genero = ''
+                    
+                    for(let g in item.genero){
+
+                        if(genero) genero += ', '//quando ter mais valores ele vai acrescentar uma vírgula
+
+						genero += item.genero[g]['#text']
+                    }
+
+                    let p3 = document.createElement('p')
+					p3.innerHTML = '<strong>Gênero:</strong> ' + genero
+                    
+
+                    let elenco = ''
+							for(let e in item.elenco.ator) {//acessando um array dentro de outro array
+								if(elenco) elenco += ', ' //quando ter mais valores ele vai acrescentar uma vírgula
+
+								elenco += item.elenco.ator[e]['#text']
+							}
+
+                        let p4 = document.createElement('p')
+						p4.innerHTML = '<strong>Elenco:</strong> ' + elenco
+
+						let p5 = document.createElement('p')
+						p5.innerHTML = '<strong>Data de lançamento:</strong> ' + item.dataLancamento['#text'] + ' (' + item.dataLancamento['@attributes']['pais'] + ')'
+
+                    let hr = document.createElement('hr')
+
+                    divRow.appendChild(divCol) //div Row é o elemento pai
+
+                    divCol.appendChild(p1) //div Col é o elemento pai
+                    divCol.appendChild(p1)
+					divCol.appendChild(p2)
+					divCol.appendChild(p3)
+					divCol.appendChild(p4)
+					divCol.appendChild(p5)
+					divCol.appendChild(hr)
+
+                    document.getElementById('lista').appendChild(divRow) //o Row engloba tudo, então precisa apenas incluir ele dentro do elemento pai 'lista'
+                   }
+
+                   /* <div class="row mt-5">
+            <div class="col">
+                <p><strong>Título:</strong>Título do filme</p>
+                <p><strong>Resumo:</strong>Resumo do filme</p>
+                <p><strong>Gênero:</strong>Gênero do filme</p>
+                <p><strong>Elenco:</strong>Elenco do filme</p>
+                <p><strong>Data de lançamento:</strong>Data de lançamento do filme</p>
+                <hr>
+            </div>
+        </div> */
                    
                 }
 
@@ -51,12 +118,15 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" id="lista">
         <div class="row">
             <div class="col">
-                <button type="button" onclick="getFilmes()">Clicar</button>
+                <button type="button" onclick="getFilmes()" class="btn btn-success">Listar filmes</button>
             </div>
         </div>
+       
     </div>
+
+    
 </body>
 </html>
